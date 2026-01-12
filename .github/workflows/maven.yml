@@ -41,3 +41,18 @@ jobs:
         with:
           # Optional: specify additional CLI arguments
           args: --severity-threshold=high
+
+  send-telegram-notification:
+    needs: build-and-test
+    name: telegram message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram notification on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🚀 New commit in ${{ github.repository }} by ${{ github.actor }}:
+            Message: "${{ github.event.commits[0].message }}"
+            View changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
