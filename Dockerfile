@@ -17,7 +17,7 @@ WORKDIR /runningapp
 
 COPY --from=builder /app/target/d13revision-0.0.1-SNAPSHOT.jar .
 
-ENV SERVER_PORT=8085
+ENV SERVER_PORT=8080
 
 EXPOSE ${SERVER_PORT}
 
